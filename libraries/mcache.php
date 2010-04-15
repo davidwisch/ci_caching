@@ -150,12 +150,12 @@ class Mcache{
 	*/
 	function get_bool($key){
 		$store = $this->_retrieve($key);
-		if($store === false){return false;}
+		if($store === false){return null;}
 
 		if(isset($store['type']) && $store['type'] == 'mcache:boolean'){
 			return $store['value'];
 		}
-		return false;
+		return null;
 	}
 
 	/**

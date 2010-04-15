@@ -83,7 +83,7 @@ Stores a boolean value in the cache.  Because of the return types of the underly
 
 `$this->mcache->get_bool($key);`
 
-Retrieves a boolean from cache.
+Retrieves a boolean from cache. Returns *null* if key couldn't be found or if type was't a boolean.
 
 `$this->mcache->increment($key, $increment=1);`
 
