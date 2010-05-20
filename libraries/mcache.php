@@ -5,18 +5,18 @@
 * @author David Wischhusen
 */
 class Mcache{
-	var $CI;
-	var $servers;
-	var $memcached;
-	var $cache_name;
-	var $cache_expires;
+	public $CI;
+	public $servers;
+	public $memcached;
+	public $cache_name;
+	public $cache_expires;
 
 	/**
 	* Mcache constructor
 	*
 	* @access public
 	*/
-	function Mcache(){
+	public function Mcache(){
 		$this->CI = &get_instance();
 
 		$this->servers = $this->CI->config->item('memcached_servers');
@@ -47,7 +47,7 @@ class Mcache{
 	* @param int
 	* @return bool
 	*/
-	function put($key, $value, $expires=MAXIMUM){
+	public function put($key, $value, $expires=MAXIMUM){
 		return $this->_cache($key, $value, 0, $expires);
 	}
 
@@ -58,7 +58,7 @@ class Mcache{
 	* @param string
 	* @return mixed
 	*/
-	function get($key){
+	public function get($key){
 		return $this->_retrieve($key);
 	}
 
@@ -69,7 +69,7 @@ class Mcache{
 	* @param string
 	* @return bool
 	*/
-	function expire($key){
+	public function expire($key){
 		return $this->memcached->delete($key);
 	}
 
@@ -82,7 +82,7 @@ class Mcache{
 	* @param int
 	* @return bool
 	*/
-	function start_fragment($name=false, $expires=MAXIMUM){
+	public function start_fragment($name=false, $expires=MAXIMUM){
 		if($name === false){
 			$back = debug_backtrace();
 			$str = md5($this->CI->uri->uri_string().'||'.$back[0]['line']);
@@ -109,7 +109,7 @@ class Mcache{
 	*
 	* @access public
 	*/
-	function end_fragment(){
+	public function end_fragment(){
 		if($this->cache_on){
 			$contents = ob_get_contents();
 			ob_end_clean();
@@ -131,7 +131,7 @@ class Mcache{
 	* @param int
 	* @return bool
 	*/
-	function put_bool($key, $value, $expires=MAXIMUM){
+	public function put_bool($key, $value, $expires=MAXIMUM){
 		if(!is_bool($value)){return false;}
 
 		$bool_construct = array(
@@ -148,7 +148,7 @@ class Mcache{
 	* @param string
 	* @return bool
 	*/
-	function get_bool($key){
+	public function get_bool($key){
 		$store = $this->_retrieve($key);
 		if($store === false){return null;}
 
@@ -166,7 +166,7 @@ class Mcache{
 	* @param int
 	* @return int
 	*/
-	function increment($key, $increment=1){
+	public function increment($key, $increment=1){
 		if($this->_retrieve($key) === false){
 			$this->_cache($key, $increment);
 			return $increment;
@@ -182,7 +182,7 @@ class Mcache{
 	* @param int
 	* @return int
 	*/
-	function decrement($key, $decrement=1){
+	public function decrement($key, $decrement=1){
 		return $this->memcached->decrement($key, $decrement);
 	}
 
@@ -193,7 +193,7 @@ class Mcache{
 	* @access public
 	* @return bool
 	*/
-	function expire_all(){
+	public function expire_all(){
 		return $this->memcached->flush();
 	}
 
