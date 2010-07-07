@@ -3,9 +3,10 @@
 /**
 * Mcache Class
 *
-* @author David Wischhusen
+* @author David Wischhusen <davewisch@gmail.com>
 */
 class Mcache{
+
 	public $CI;
 	public $servers;
 	public $memcached;
